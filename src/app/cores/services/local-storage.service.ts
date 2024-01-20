@@ -2,7 +2,7 @@ import collect, { Collection } from 'collect.js';
 import * as Crypto from 'crypto-js';
 import { environment } from 'src/environments/environment';
 
-export class LocalstorageService {
+export class LocalStorageService {
   private _result: string = '';
 
   constructor() {}

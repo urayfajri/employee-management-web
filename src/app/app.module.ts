@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { StoreModule } from '@ngrx/store';
 import { ToastrModule } from 'ngx-toastr';
+import { LocalStorageService } from './cores/services/local-storage.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -12,10 +13,14 @@ import { ToastrModule } from 'ngx-toastr';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot({
+      timeOut: 1000,
+      progressBar: true,
+      progressAnimation: 'increasing',
+    }),
     StoreModule.forRoot({}, {}),
   ],
-  providers: [],
+  providers: [LocalStorageService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
