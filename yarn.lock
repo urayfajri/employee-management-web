@@ -2550,6 +2550,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/crypto-js@npm:^4.2.1":
+  version: 4.2.1
+  resolution: "@types/crypto-js@npm:4.2.1"
+  checksum: 2111fb39a879e6c346a657cd4994534b8ff54d34dbfe45f82587e84165af0d9a3b8448c0d9a8ddabc81b5875295ea049462e7b969dbeb7cf24ae205e66dcf15a
+  languageName: node
+  linkType: hard
+
 "@types/eslint-scope@npm:^3.7.3":
   version: 3.7.7
   resolution: "@types/eslint-scope@npm:3.7.7"
@@ -3775,6 +3782,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"collect.js@npm:^4.36.1":
+  version: 4.36.1
+  resolution: "collect.js@npm:4.36.1"
+  checksum: ae8fdbc7986ec4f3e3c9248daaa52891787cd13c30e4bbc46ff02954e31c15104a3a4fb352f04eb9f954c5b237e523302c79f4d6c193687b31e653f68473edb1
+  languageName: node
+  linkType: hard
+
 "color-convert@npm:^1.9.0":
   version: 1.9.3
   resolution: "color-convert@npm:1.9.3"
@@ -4052,6 +4066,13 @@ __metadata:
     shebang-command: ^2.0.0
     which: ^2.0.1
   checksum: 671cc7c7288c3a8406f3c69a3ae2fc85555c04169e9d611def9a675635472614f1c0ed0ef80955d5b6d4e724f6ced67f0ad1bb006c2ea643488fcfef994d7f52
+  languageName: node
+  linkType: hard
+
+"crypto-js@npm:^4.2.0":
+  version: 4.2.0
+  resolution: "crypto-js@npm:4.2.0"
+  checksum: f051666dbc077c8324777f44fbd3aaea2986f198fe85092535130d17026c7c2ccf2d23ee5b29b36f7a4a07312db2fae23c9094b644cc35f7858b1b4fcaf27774
   languageName: node
   linkType: hard
 
@@ -4413,8 +4434,11 @@ __metadata:
     "@angular/router": ^16.0.0
     "@ng-select/ng-select": ^12.0.6
     "@ngrx/store": ^17.1.0
+    "@types/crypto-js": ^4.2.1
     "@types/jasmine": ~4.3.0
     autoprefixer: ^10.4.17
+    collect.js: ^4.36.1
+    crypto-js: ^4.2.0
     jasmine-core: ~4.6.0
     karma: ~6.4.0
     karma-chrome-launcher: ~3.2.0
