@@ -11,6 +11,8 @@ import { ErrorInterceptor } from './cores/interceptors/error.interceptor';
 import { AuthInterceptor } from './cores/interceptors/auth.interceptor';
 import { AuthService } from './cores/services/auth.service';
 import { RouterModule } from '@angular/router';
+import { SharedModule } from './shared/shared.module';
+import { HomeComponent } from './pages/home/home.component';
 
 @NgModule({
   declarations: [AppComponent],
@@ -20,6 +22,7 @@ import { RouterModule } from '@angular/router';
     RouterModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    SharedModule,
     ToastrModule.forRoot({
       timeOut: 1000,
       progressBar: true,
