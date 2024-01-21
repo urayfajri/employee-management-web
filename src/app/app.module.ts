@@ -10,12 +10,14 @@ import { JwtInterceptor } from './cores/interceptors/jwt.interceptor';
 import { ErrorInterceptor } from './cores/interceptors/error.interceptor';
 import { AuthInterceptor } from './cores/interceptors/auth.interceptor';
 import { AuthService } from './cores/services/auth.service';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    RouterModule,
     BrowserAnimationsModule,
     HttpClientModule,
     ToastrModule.forRoot({

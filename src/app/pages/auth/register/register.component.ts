@@ -26,9 +26,9 @@ export class RegisterComponent implements OnInit, OnDestroy {
     private readonly authService: AuthService
   ) {
     // redirect to home if already logged in
-    if (this.authService.currentUserValue) {
-      this.router.navigate(['/']);
-    }
+    // if (this.authService.currentUserValue) {
+    //   this.router.navigate(['/']);
+    // }
 
     this.form = this.formBuilder.nonNullable.group({
       username: ['', Validators.required],
