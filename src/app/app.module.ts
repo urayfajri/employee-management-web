@@ -5,7 +5,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { StoreModule } from '@ngrx/store';
 import { ToastrModule } from 'ngx-toastr';
-import { LocalStorageService } from './cores/services/local-storage.service';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { JwtInterceptor } from './cores/interceptors/jwt.interceptor';
+import { ErrorInterceptor } from './cores/interceptors/error.interceptor';
+import { AuthInterceptor } from './cores/interceptors/auth.interceptor';
+import { AuthService } from './cores/services/auth.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -13,6 +17,7 @@ import { LocalStorageService } from './cores/services/local-storage.service';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     ToastrModule.forRoot({
       timeOut: 1000,
       progressBar: true,
@@ -20,7 +25,12 @@ import { LocalStorageService } from './cores/services/local-storage.service';
     }),
     StoreModule.forRoot({}, {}),
   ],
-  providers: [LocalStorageService],
+  providers: [
+    AuthService,
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

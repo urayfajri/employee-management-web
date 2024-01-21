@@ -1,8 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subject } from 'rxjs';
-import { LocalStorageService } from '../../cores/services/local-storage.service';
+import { Subject, first } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from 'src/app/cores/services/auth.service';
 
 @Component({
   selector: 'app-auth',
@@ -13,16 +14,29 @@ export class AuthComponent implements OnInit, OnDestroy {
   private readonly _onDestroy$: Subject<void> = new Subject<void>();
 
   form: FormGroup;
+  loading: boolean = false;
+  submitted: boolean = false;
+  returnUrl: string;
 
   constructor(
-    private readonly localStorageService: LocalStorageService,
     private readonly formBuilder: FormBuilder,
-    private readonly toastr: ToastrService
+    private readonly toastr: ToastrService,
+    private readonly route: ActivatedRoute,
+    private readonly router: Router,
+    private readonly authService: AuthService
   ) {
+    // redirect to home if already logged in
+    if (this.authService.currentUserValue) {
+      this.router.navigate(['/']);
+    }
+
     this.form = this.formBuilder.nonNullable.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
     });
+
+    // get return url from route parameters or default to '/'
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
   ngOnInit(): void {}
@@ -31,13 +45,37 @@ export class AuthComponent implements OnInit, OnDestroy {
     this._onDestroy$.complete();
   }
 
+  // convenience getter for easy access to form fields
+  get username() {
+    return this.form.get('username');
+  }
+
+  get password() {
+    return this.form.get('password');
+  }
+
   onSubmit(): void {
+    this.submitted = true;
+
     if (this.form.invalid) {
       this.toastr.error('Username or password cannot be empty', 'Error');
       return;
     }
 
+    this.loading = true;
+    this.authService
+      .login(this.username?.value, this.password?.value)
+      .pipe(first())
+      .subscribe(
+        (data) => {
+          this.router.navigate([this.returnUrl]);
+        },
+        (error) => {
+          this.toastr.error(error);
+          this.loading = false;
+        }
+      );
+
     this.toastr.success('berhasil', 'Login Success');
-    this.form?.reset();
   }
 }

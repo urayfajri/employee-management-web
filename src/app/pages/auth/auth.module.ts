@@ -4,6 +4,7 @@ import { AuthComponent } from './auth.component';
 import { AuthRoutingModule } from './auth-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { AuthService } from 'src/app/cores/services/auth.service';
 
 @NgModule({
   declarations: [AuthComponent],
@@ -14,5 +15,6 @@ import { NgSelectModule } from '@ng-select/ng-select';
     ReactiveFormsModule,
     NgSelectModule,
   ],
+  providers: [],
 })
 export class AuthModule {}
