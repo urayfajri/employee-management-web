@@ -86,7 +86,9 @@
     </form>
     <!-- Sign up  Link -->
     <div class="mt-6 text-center text-blue-500 cursor-pointer">
-      <div class="hover:underline" (click)="test()">Sign up Here</div>
+      <div class="hover:underline" [routerLink]="['/auth/register']">
+        Sign up Here
+      </div>
     </div>
   </div>
 </div>

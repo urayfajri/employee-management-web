@@ -77,9 +77,4 @@ export class LoginComponent implements OnInit, OnDestroy {
         }
       );
   }
-
-  test() {
-    console.log(this.returnUrl);
-    this.router.navigate(['/auth/register']);
-  }
 }
