@@ -40,9 +40,9 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     // redirect to home if already logged in
-    if (this.authService.currentUserValue.id !== 0) {
-      this.router.navigate(['/']);
-    }
+    // if (this.authService.currentUserValue.id !== 0) {
+    //   this.router.navigate(['/']);
+    // }
   }
   ngOnDestroy(): void {
     this._onDestroy$.next();
