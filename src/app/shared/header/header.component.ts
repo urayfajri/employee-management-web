@@ -21,7 +21,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private readonly router: Router,
     private readonly authService: AuthService
   ) {
-    this.authService.currentUser.subscribe((x) => (this.currentUser = x));
+    this.authService.currentUser.subscribe((user) => {
+      if (user.id !== 0) {
+        this.currentUser = user;
+      }
+    });
   }
   ngOnInit(): void {}
   ngOnDestroy(): void {

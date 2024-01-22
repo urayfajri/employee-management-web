@@ -25,11 +25,6 @@ export class LoginComponent implements OnInit, OnDestroy {
     private readonly router: Router,
     private readonly authService: AuthService
   ) {
-    // redirect to home if already logged in
-    // if (this.authService.currentUserValue) {
-    //   this.router.navigate(['/']);
-    // }
-
     this.form = this.formBuilder.nonNullable.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
@@ -39,7 +34,12 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // redirect to home if already logged in
+    if (this.authService.currentUserValue.id !== 0) {
+      this.router.navigate(['/']);
+    }
+  }
   ngOnDestroy(): void {
     this._onDestroy$.next();
     this._onDestroy$.complete();

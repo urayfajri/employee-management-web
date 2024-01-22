@@ -6,3 +6,12 @@ export interface UserDTO {
   lastName: string;
   token: string;
 }
+
+export const userDefault = {
+  id: 0,
+  username: '',
+  password: '',
+  firstName: '',
+  lastName: '',
+  token: '',
+};

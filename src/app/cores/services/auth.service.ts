@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, map } from 'rxjs';
-import { UserDTO } from '../dtos/user.dto';
+import { UserDTO, userDefault } from '../dtos/user.dto';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { LocalEnum } from '../enums/local.enum';
 
@@ -12,7 +12,7 @@ export class AuthService {
   constructor(private readonly http: HttpClient) {
     let userInfo = localStorage.getItem(LocalEnum.USER_INFO);
     const jsonParse: UserDTO =
-      userInfo !== null ? JSON.parse(userInfo) : ({} as UserDTO);
+      userInfo !== null ? JSON.parse(userInfo) : userDefault;
     this.currentUserSubject = new BehaviorSubject<UserDTO>(jsonParse);
     this.currentUser = this.currentUserSubject.asObservable();
   }
@@ -41,6 +41,6 @@ export class AuthService {
   logout() {
     // remove user from local storage to log user out
     localStorage.removeItem(LocalEnum.USER_INFO);
-    this.currentUserSubject.next({} as UserDTO);
+    this.currentUserSubject.next(userDefault);
   }
 }
