@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
-import { AuthService } from '../auth/auth.service';
-import { SharedModule } from '../../../shared/shared.module';
+import { SharedModule } from '../../shared/shared.module';
+import { AuthService } from '../../core/auth/auth.service';
 
 @Component({
   selector: 'app-login',
