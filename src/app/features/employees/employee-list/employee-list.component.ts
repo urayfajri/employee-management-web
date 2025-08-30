@@ -6,6 +6,7 @@ import { DummyEmployees, EmployeeDTO } from '../../../core/dto/employee/employee
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { EmployeeStateService } from '../state/employee-state.service';
 
 @Component({
   selector: 'app-employee-list',
@@ -17,6 +18,7 @@ import { MatSort } from '@angular/material/sort';
 export class EmployeeListComponent {
   router = inject(Router);
   snackBar = inject(MatSnackBar);
+  private state = inject(EmployeeStateService);
 
   displayedColumns = ['username', 'firstName', 'lastName', 'email', 'status', 'group', 'actions'];
   dataSource = new MatTableDataSource<EmployeeDTO>(DummyEmployees);
@@ -27,7 +29,14 @@ export class EmployeeListComponent {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.searchUsername = this.state.searchUsername();
+    this.searchGroup = this.state.searchGroup();
+
+    if (this.searchUsername || this.searchGroup) {
+      this.search();
+    }
+  }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
@@ -35,12 +44,18 @@ export class EmployeeListComponent {
   }
 
   search() {
+    //state
+    this.state.setSearch(this.searchUsername, this.searchGroup);
+    console.log(this.searchUsername, this.searchGroup);
+
     this.dataSource.data = DummyEmployees.filter(
       (emp) =>
         emp.username.toLowerCase().includes(this.searchUsername.toLowerCase()) &&
         emp.group.toLowerCase().includes(this.searchGroup.toLowerCase())
     );
-    this.paginator.firstPage(); // reset ke page 1 setelah search
+    if (this.paginator) {
+      this.paginator.firstPage();
+    }
   }
 
   addEmployee() {
@@ -62,6 +77,7 @@ export class EmployeeListComponent {
   }
 
   viewDetail(emp: EmployeeDTO) {
-    this.router.navigate(['/employees/detail', emp.username]);
+    this.state.setSelectedEmployee(emp);
+    this.router.navigate(['/employees/detail']);
   }
 }

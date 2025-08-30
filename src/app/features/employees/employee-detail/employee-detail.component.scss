@@ -1,0 +1,111 @@
+.page-container {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.page-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.detail-card {
+  width: 1000px;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.detail-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.2rem;
+}
+
+.avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #3f51b5, #2196f3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.title {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.subtitle {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.detail-content {
+  padding: 1.5rem;
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  row-gap: 1rem;
+}
+
+.detail-row {
+  display: contents; /* biar label & value sejajar rapi */
+}
+
+.label {
+  font-weight: 600;
+  color: #555;
+}
+
+.value {
+  color: #333;
+}
+
+.salary {
+  font-weight: 700;
+  color: #2e7d32;
+}
+
+.empty-state {
+  text-align: center;
+  color: #999;
+  font-size: 1rem;
+  margin-top: 3rem;
+}
+
+.detail-actions {
+  padding: 1.5rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.status-chip {
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+  width: fit-content;
+
+  &.active {
+    background: #c8e6c9;
+    color: #256029;
+  }
+
+  &.inactive {
+    background: #ffcdd2;
+    color: #b71c1c;
+  }
+
+  &.pending {
+    background: #fff9c4;
+    color: #827717;
+  }
+}

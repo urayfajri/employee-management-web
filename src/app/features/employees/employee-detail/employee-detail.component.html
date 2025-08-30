@@ -1,1 +1,48 @@
-<p>employee-detail works!</p>
+<!-- employee-detail.component.html -->
+<div class="page-container">
+  @if (employee) {
+  <h2 class="page-title">👤 Detail Employee</h2>
+  <mat-card class="detail-card">
+    <mat-card-header class="detail-header">
+      <div class="avatar">{{ employee.firstName.charAt(0) }}{{ employee.lastName.charAt(0) }}</div>
+      <div>
+        <mat-card-title class="title">{{ employee.username }}</mat-card-title>
+        <mat-card-subtitle class="subtitle">{{ employee.group }}</mat-card-subtitle>
+      </div>
+    </mat-card-header>
+
+    <mat-divider></mat-divider>
+
+    <mat-card-content class="detail-content">
+      <div class="detail-row">
+        <span class="label">Full Name</span>
+        <span class="value">{{ employee.firstName }} {{ employee.lastName }}</span>
+      </div>
+      <div class="detail-row">
+        <span class="label">Email</span>
+        <span class="value">{{ employee.email }}</span>
+      </div>
+      <div class="detail-row">
+        <span class="label">Birth Date</span>
+        <span class="value">{{ employee.birthDate | date : 'dd MMMM yyyy' }}</span>
+      </div>
+      <div class="detail-row">
+        <span class="label">Basic Salary</span>
+        <span class="value salary">{{ formatSalary(employee.basicSalary) }}</span>
+      </div>
+      <div class="detail-row">
+        <span class="label">Status</span>
+        <span class="status-chip" [ngClass]="employee.status.toLowerCase()">{{
+          employee.status
+        }}</span>
+      </div>
+    </mat-card-content>
+
+    <mat-card-actions class="detail-actions">
+      <button mat-flat-button color="primary" (click)="backToList()">✅ Back to List</button>
+    </mat-card-actions>
+  </mat-card>
+  } @else {
+  <p class="empty-state">⚠️ No employee data found.</p>
+  }
+</div>
