@@ -1,10 +1,23 @@
 import { Injectable, signal, computed } from '@angular/core';
 import { Router } from '@angular/router';
+import {
+  debounceTime,
+  fromEvent,
+  merge,
+  Subject,
+  Subscription,
+  switchMap,
+  takeUntil,
+  timer,
+} from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private _isLoggedIn = signal(false);
-  isLoggedIn = computed(() => this._isLoggedIn());
+  private timeoutMinutes = 0.5; // auto logout after 30 seconds of inactivity
+  private sessionSub?: Subscription;
+
+  // signal to track login status
+  _isLoggedIn = signal(false);
 
   constructor(private router: Router) {}
 
@@ -13,6 +26,7 @@ export class AuthService {
     if (username === 'admin' && password === '1234') {
       this._isLoggedIn.set(true);
       this.router.navigate(['/employees']);
+      this.startIdleTimer();
       return true;
     }
     return false;
@@ -20,6 +34,36 @@ export class AuthService {
 
   logout() {
     this._isLoggedIn.set(false);
+    this.stopIdleTimer();
     this.router.navigate(['/login']);
+  }
+
+  // Mulai idle timer
+  private startIdleTimer() {
+    this.stopIdleTimer(); // pastikan tidak ada timer lama
+
+    // listen semua aktivitas user: click, keydown, scroll, mousemove
+    const activity$ = merge(
+      fromEvent(document, 'click'),
+      fromEvent(document, 'keydown'),
+      fromEvent(document, 'scroll'),
+      fromEvent(document, 'mousemove')
+    );
+
+    this.sessionSub = activity$
+      .pipe(
+        // jika user tidak aktif selama timeoutMs, timer akan jalan
+        debounceTime(0), // reset timer segera setelah ada aktivitas
+        switchMap(() => timer(this.timeoutMinutes * 60 * 1000)) // buat timer baru saat idle
+      )
+      .subscribe(() => {
+        alert('Session expired due to inactivity!');
+        this.logout();
+      });
+  }
+
+  private stopIdleTimer() {
+    this.sessionSub?.unsubscribe();
+    this.sessionSub = undefined;
   }
 }
