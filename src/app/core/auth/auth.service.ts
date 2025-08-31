@@ -1,19 +1,10 @@
 import { Injectable, signal, computed } from '@angular/core';
 import { Router } from '@angular/router';
-import {
-  debounceTime,
-  fromEvent,
-  merge,
-  Subject,
-  Subscription,
-  switchMap,
-  takeUntil,
-  timer,
-} from 'rxjs';
+import { debounceTime, fromEvent, merge, Subscription, switchMap, timer } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private timeoutMinutes = 0.5; // auto logout after 30 seconds of inactivity
+  private timeoutMinutes = 1; // auto logout after 1 minutes of inactivity
   private sessionSub?: Subscription;
 
   // signal to track login status

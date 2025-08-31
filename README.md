@@ -1,59 +1,83 @@
-# EmployeeManagementWeb
+# Employee Management Web
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.2.1.
+---
 
-## Development server
+## 🚀 Tech Stack
 
-To start a local development server, run:
+- **Angular 20**  
+  Framework utama untuk membangun aplikasi web berbasis SPA (Single Page Application).
+
+- **Standalone Components**  
+  Digunakan untuk menghindari boilerplate `NgModule`, membuat struktur aplikasi lebih modular dan ringan.
+
+- **Lazy Loading**
+  Digunakan bersama Angular Router untuk memuat modul/fitur hanya saat dibutuhkan (on-demand).
+
+- **Signals**  
+  Dipakai untuk state management reaktif yang lebih sederhana dan efisien dibanding `@Input` / `@Output`.
+
+- **RxJS**  
+  Digunakan untuk menangani asynchronous stream seperti HTTP request, event handling, dan data flow reaktif.
+
+- **Angular Material**  
+  Dipakai untuk membangun antarmuka aplikasi yang modern, responsif, dan konsisten. Contoh: `Snackbar` (notifikasi), `Dialog`, `Table`, `Button`, dsb.
+
+---
+
+## ⚙️ Environment Setup
+
+### 1. Install Node.js (Minimal Requirement)
+
+Angular CLI membutuhkan Node.js versi minimal:
+
+- **v20.19.x** atau
+- **v22.12.x**
+
+Disarankan menggunakan **nvm** agar mudah berpindah versi Node.js.
+
+Install Node.js via nvm
+nvm install 22
+nvm use 22
+
+Cek versi Node.js:
+
+```bash
+node -v
+```
+
+## ▶️ Cara Menjalankan Project
+
+Clone repository
+
+```bash
+git clone https://github.com/urayfajri/employee-management-web.git
+cd employee-management-web
+```
+
+Install dependencies
+
+```bash
+npm install
+```
+
+Jalankan aplikasi
 
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Secara default aplikasi akan jalan di:
 
 ```bash
-ng generate component component-name
+👉 http://localhost:4200
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## 📌 Catatan
 
-```bash
-ng generate --help
-```
+- Pastikan Node.js sesuai versi agar Angular CLI bisa berjalan dengan lancar.
 
-## Building
+- Project ini sepenuhnya menggunakan standalone architecture tanpa NgModule.
 
-To build the project run:
+- State management sebagian besar ditangani menggunakan signals & RxJS untuk pola reaktif.
 
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- Angular Material dipakai untuk mempercepat pembuatan UI dengan desain konsisten.

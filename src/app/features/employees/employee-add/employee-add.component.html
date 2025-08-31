@@ -56,31 +56,11 @@
     <!-- Basic Salary -->
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Basic Salary</mat-label>
-      <input matInput formControlName="basicSalary" />
+      <input matInput formControlName="basicSalary" type="number" />
       @if(form.get('basicSalary')?.hasError('required')) {
       <mat-error> Basic salary is required </mat-error>
       } @if (form.get('basicSalary')?.hasError('pattern')) {
       <mat-error> Basic salary must be a number </mat-error>
-      }
-    </mat-form-field>
-
-    <!-- Status -->
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Status</mat-label>
-      <mat-select formControlName="status">
-        <mat-option>
-          <input
-            matInput
-            placeholder="Select status"
-            (keyup)="$event.stopPropagation(); filterStatus($event)"
-          />
-        </mat-option>
-        @for (g of statusOptions(); track g) {
-        <mat-option [value]="g">{{ g }}</mat-option>
-        }
-      </mat-select>
-      @if (form.get('status')?.hasError('required')) {
-      <mat-error> Status is required </mat-error>
       }
     </mat-form-field>
 
@@ -101,6 +81,26 @@
       </mat-select>
       @if(form.get('group')?.hasError('required')) {
       <mat-error> Group is required </mat-error>
+      }
+    </mat-form-field>
+
+    <!-- Status -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Status</mat-label>
+      <mat-select formControlName="status">
+        <mat-option>
+          <input
+            matInput
+            placeholder="Select status"
+            (keyup)="$event.stopPropagation(); filterStatus($event)"
+          />
+        </mat-option>
+        @for (g of statusOptions(); track g) {
+        <mat-option [value]="g">{{ g }}</mat-option>
+        }
+      </mat-select>
+      @if (form.get('status')?.hasError('required')) {
+      <mat-error> Status is required </mat-error>
       }
     </mat-form-field>
 
