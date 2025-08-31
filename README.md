@@ -1,7 +1,5 @@
 # Employee Management Web
 
----
-
 ## 🚀 Tech Stack
 
 - **Angular 20**  
@@ -21,8 +19,6 @@
 
 - **Angular Material**  
   Dipakai untuk membangun antarmuka aplikasi yang modern, responsif, dan konsisten. Contoh: `Snackbar` (notifikasi), `Dialog`, `Table`, `Button`, dsb.
-
----
 
 ## ⚙️ Environment Setup
 
