@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { EmployeeApiService } from '../../../core/services/employee/employee-api.service';
 import { EmployeeDTO } from '../../../core/dto/employee/employee.dto';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { EmployeeStateService } from '../state/employee-state.service';
 
 @Component({
   selector: 'app-employee-add',
@@ -18,6 +19,10 @@ export class EmployeeAddComponent {
   private api = inject(EmployeeApiService);
   private router = inject(Router);
   private snackBar = inject(MatSnackBar);
+  private state = inject(EmployeeStateService);
+
+  // state
+  employee: EmployeeDTO | null = this.state.selectedEmployee();
 
   groups = signal<string[]>([
     'Engineering',
@@ -33,7 +38,6 @@ export class EmployeeAddComponent {
   ]);
 
   statusOptions = signal<string[]>(['Active', 'Inactive']);
-
   filteredGroups = signal<string[]>(this.groups());
   filteredStatus = signal<string[]>(this.statusOptions());
 
@@ -48,6 +52,12 @@ export class EmployeeAddComponent {
     group: ['', Validators.required],
     description: ['', Validators.required],
   });
+
+  constructor() {
+    if (this.employee) {
+      this.form.patchValue(this.employee);
+    }
+  }
 
   birthDateValidator(control: any) {
     if (!control.value) return null;
@@ -71,12 +81,22 @@ export class EmployeeAddComponent {
       this.form.markAllAsTouched();
       return;
     }
-    // this.state.addEmployee(this.form.value);
+
     const newEmployee: EmployeeDTO = this.form.value as EmployeeDTO;
-    this.api.addEmployee(newEmployee).then(() => {
-      this.router.navigate(['/employees']);
-      this.snackBar.open(`Add ${newEmployee.username} Success`, 'Close', { duration: 2000 });
-    });
+
+    if (this.employee) {
+      newEmployee.id = this.employee.id;
+      const updatedEmployee: EmployeeDTO = newEmployee;
+      this.api.updateEmployee(updatedEmployee).then(() => {
+        this.router.navigate(['/employees']);
+        this.snackBar.open(`Update ${newEmployee.username} Success`, 'Close', { duration: 2000 });
+      });
+    } else {
+      this.api.addEmployee(newEmployee).then(() => {
+        this.router.navigate(['/employees']);
+        this.snackBar.open(`Add ${newEmployee.username} Success`, 'Close', { duration: 2000 });
+      });
+    }
   }
 
   cancel() {
