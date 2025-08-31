@@ -1,5 +1,11 @@
 # Employee Management Web
 
+**Live**
+
+```bash
+https://employee-management-web-teal.vercel.app
+```
+
 ## 🚀 Tech Stack
 
 - **Angular 20**  
@@ -41,7 +47,7 @@ Cek versi Node.js:
 node -v
 ```
 
-## ▶️ Cara Menjalankan Project
+## ▶️ Cara Menjalankan Project (Lokal)
 
 Clone repository
 
@@ -66,6 +72,22 @@ Secara default aplikasi akan jalan di:
 
 ```bash
 👉 http://localhost:4200
+```
+
+## Authorized
+
+untuk login ke aplikasi
+
+**User Name:**
+
+```bash
+admin
+```
+
+**Password:**
+
+```bash
+1234
 ```
 
 ## 📌 Catatan
