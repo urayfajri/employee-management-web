@@ -5,26 +5,19 @@
       <p>Please login to continue</p>
     </div>
 
-    <form (ngSubmit)="onLogin()" #loginForm="ngForm">
+    <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Username</mat-label>
-        <input matInput [(ngModel)]="username" name="username" required #usernameInput="ngModel" />
-        @if (usernameInput.invalid && usernameInput.touched) {
-        <mat-error> Username is required </mat-error>
-        }
+        <input matInput formControlName="username" />
+        @if (loginForm.get('username')?.hasError('required') && loginForm.get('username')?.touched)
+        { <mat-error> Username is required </mat-error>}
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Password</mat-label>
-        <input
-          matInput
-          [(ngModel)]="password"
-          name="password"
-          type="password"
-          required
-          #passwordInput="ngModel"
-        />
-        @if (passwordInput.invalid && passwordInput.touched) {
+        <input matInput type="password" formControlName="password" />
+        @if (loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched)
+        {
         <mat-error> Password is required </mat-error>
         }
       </mat-form-field>
@@ -32,8 +25,8 @@
       <button mat-raised-button color="primary" class="full-width">Login</button>
 
       @if (errorMessage) {
-      <mat-error> {{ errorMessage }} </mat-error>
-      }
+      <mat-error>{{ errorMessage }}</mat-error
+      >}
     </form>
   </mat-card>
 </div>
