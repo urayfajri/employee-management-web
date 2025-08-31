@@ -1,4 +1,5 @@
 export interface EmployeeDTO {
+  id: number;
   username: string;
   firstName: string;
   lastName: string;
@@ -12,6 +13,7 @@ export interface EmployeeDTO {
 
 // Optional: untuk dummy data / initial data
 export const DummyEmployees: EmployeeDTO[] = Array.from({ length: 100 }).map((_, i) => ({
+  id: i + 1,
   username: `user${i}`,
   firstName: `First${i}`,
   lastName: `Last${i}`,

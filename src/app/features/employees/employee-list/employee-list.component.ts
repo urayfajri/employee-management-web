@@ -7,6 +7,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { EmployeeStateService } from '../state/employee-state.service';
+import { EmployeeApiService } from '../../../core/services/employee/employee-api.service';
 
 @Component({
   selector: 'app-employee-list',
@@ -16,9 +17,10 @@ import { EmployeeStateService } from '../state/employee-state.service';
   styleUrl: './employee-list.component.scss',
 })
 export class EmployeeListComponent {
-  router = inject(Router);
-  snackBar = inject(MatSnackBar);
+  private router = inject(Router);
+  private snackBar = inject(MatSnackBar);
   private state = inject(EmployeeStateService);
+  private api = inject(EmployeeApiService);
 
   displayedColumns = ['username', 'firstName', 'lastName', 'email', 'status', 'group', 'actions'];
   dataSource = new MatTableDataSource<EmployeeDTO>(DummyEmployees);
@@ -32,10 +34,9 @@ export class EmployeeListComponent {
   ngOnInit() {
     this.searchUsername = this.state.searchUsername();
     this.searchGroup = this.state.searchGroup();
+    this.state.setSelectedEmployee(null);
 
-    if (this.searchUsername || this.searchGroup) {
-      this.search();
-    }
+    this.loadEmployees();
   }
 
   ngAfterViewInit() {
@@ -43,10 +44,22 @@ export class EmployeeListComponent {
     this.dataSource.sort = this.sort;
   }
 
+  async loadEmployees() {
+    try {
+      const employees = await this.api.getEmployees();
+      this.dataSource.data = employees;
+
+      if (this.searchUsername || this.searchGroup) {
+        this.search();
+      }
+    } catch (err) {
+      this.snackBar.open('⚠️ Failed to load employees', 'Close', { duration: 2000 });
+    }
+  }
+
   search() {
     //state
     this.state.setSearch(this.searchUsername, this.searchGroup);
-    console.log(this.searchUsername, this.searchGroup);
 
     this.dataSource.data = DummyEmployees.filter(
       (emp) =>
@@ -63,17 +76,16 @@ export class EmployeeListComponent {
   }
 
   editEmployee(emp: EmployeeDTO) {
-    this.snackBar.open(`Edit ${emp.username}`, 'Close', {
-      duration: 2000,
-      panelClass: ['edit-snackbar'],
-    });
+    this.state.setSelectedEmployee(emp);
+    this.router.navigate(['/employees/add']);
   }
 
-  deleteEmployee(emp: EmployeeDTO) {
-    this.snackBar.open(`Delete ${emp.username}`, 'Close', {
-      duration: 2000,
-      panelClass: ['delete-snackbar'],
-    });
+  async deleteEmployee(emp: EmployeeDTO) {
+    const ok = await this.api.deleteEmployee(emp.id);
+    if (ok) {
+      this.snackBar.open(`Deleted ${emp.username} Success`, 'Close', { duration: 2000 });
+      this.loadEmployees();
+    }
   }
 
   viewDetail(emp: EmployeeDTO) {
