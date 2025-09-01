@@ -1,4 +1,4 @@
-import { Injectable, signal, computed } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { debounceTime, fromEvent, merge, Subscription, switchMap, timer } from 'rxjs';
 
@@ -29,11 +29,9 @@ export class AuthService {
     this.router.navigate(['/login']);
   }
 
-  // Mulai idle timer
   private startIdleTimer() {
-    this.stopIdleTimer(); // pastikan tidak ada timer lama
+    this.stopIdleTimer();
 
-    // listen semua aktivitas user: click, keydown, scroll, mousemove
     const activity$ = merge(
       fromEvent(document, 'click'),
       fromEvent(document, 'keydown'),
@@ -43,9 +41,8 @@ export class AuthService {
 
     this.sessionSub = activity$
       .pipe(
-        // jika user tidak aktif selama timeoutMs, timer akan jalan
-        debounceTime(0), // reset timer segera setelah ada aktivitas
-        switchMap(() => timer(this.timeoutMinutes * 60 * 1000)) // buat timer baru saat idle
+        debounceTime(0),
+        switchMap(() => timer(this.timeoutMinutes * 60 * 1000))
       )
       .subscribe(() => {
         alert('Session expired due to inactivity!');

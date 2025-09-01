@@ -53,9 +53,14 @@ export class EmployeeAddComponent {
     description: ['', Validators.required],
   });
 
+  title = '';
+
   constructor() {
     if (this.employee) {
       this.form.patchValue(this.employee);
+      this.title = 'Edit Employee';
+    } else {
+      this.title = 'Add New Employee';
     }
   }
 

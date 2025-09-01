@@ -11,6 +11,7 @@ export const EMPLOYEE_ROUTES: Routes = [
     children: [
       { path: '', component: EmployeeListComponent },
       { path: 'add', component: EmployeeAddComponent },
+      { path: 'edit', component: EmployeeAddComponent },
       { path: 'detail', component: EmployeeDetailComponent },
     ],
   },

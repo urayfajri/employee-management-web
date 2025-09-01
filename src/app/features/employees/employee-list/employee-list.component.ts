@@ -77,7 +77,7 @@ export class EmployeeListComponent {
 
   editEmployee(emp: EmployeeDTO) {
     this.state.setSelectedEmployee(emp);
-    this.router.navigate(['/employees/add']);
+    this.router.navigate(['/employees/edit']);
   }
 
   async deleteEmployee(emp: EmployeeDTO) {
